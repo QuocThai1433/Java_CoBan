@@ -1,0 +1,41 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  application:
+    name: student
+  profiles:
+    active: ${ENV:dev}
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/student}
+    username: ${DATABASE_USER:root}
+    password: ${DATABASE_PASSWORD:FormosVN@123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: hikari-id
+      auto-commit: true
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+      minimum-idle: 3
+      maximum-pool-size: 20
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate.format_sql: true
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+#      use-new-id-generator-mappings: false
+#      naming:
+#        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+#  security:
+#    oauth2:
+#      resource-server:
+#        jwt:
+#          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:thai_realm}/protocol/openid-connect/certs
+#          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:thai_realm}
